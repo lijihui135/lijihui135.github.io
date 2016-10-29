@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "PDO连接数据库"
-date:   2015-12-23 11:49:45 +0200
+date:    11:49:45 +0200
 categories: 
 ---
 
