@@ -8,7 +8,7 @@
 # Site settings
 title: The Dude
 email: your-email@domain.com
-description:  我是李先森，一个北漂的技术人员，这就是我的博客，欢迎大家光临！
+description:                我是李先森，一个北漂的技术人员，这就是我的博客，欢迎大家光临！
 baseurl: "./" # the subpath of your site, e.g. /blog
 url: "http://yourdomain.com" # the base hostname & protocol for your site
 twitter_username: jekyllrb
