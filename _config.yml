@@ -8,9 +8,7 @@
 # Site settings
 title: The Dude
 email: your-email@domain.com
-description:  Write an awesome description for your new site here. You can edit this
-              line in _config.yml. It will appear in your document head meta (for
-              Google search results) and in your feed.xml site description.
+description:  我是李先森，一个北漂的技术人员，这就是我的博客，欢迎大家光临！
 baseurl: "./" # the subpath of your site, e.g. /blog
 url: "http://yourdomain.com" # the base hostname & protocol for your site
 twitter_username: jekyllrb
