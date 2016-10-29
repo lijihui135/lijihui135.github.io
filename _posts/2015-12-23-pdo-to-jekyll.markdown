@@ -1,8 +1,8 @@
 ---
 layout: post
 title:  "PDO连接数据库"
-date:    11:49:45 +0200
-categories: 
+date:   2015-12-23 11:49:45 +0200
+categories: jekyll update
 ---
 
 首先我们先来介绍一下PDO常用的一些方法 。
