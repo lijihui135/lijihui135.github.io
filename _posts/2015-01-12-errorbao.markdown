@@ -1,0 +1,127 @@
+---
+layout: post
+title:  "PHP常见错误总结"
+date:   2015-01-12 11:49:45 +0200
+categories: jekyll update
+---
+
+1:为什么得不到想要的变量
+
+当你在一网页向另一网页POST数据name，为什么输出$name时却得不到任何值呢?
+
+这是因为在PHP4.2以后的版本中register_global默认为off
+你需要在在PHP.ini中找到register_global，并把它设置为on.
+或者在接收网页最前面放上这个extract($_POST);extract($_GET);(注意extract($_SESSION)前必须要有Session_Start()).
+还有就是：一个一个读取变量$a=$_GET["a"];$b=$_POST["b"]等，这种方法虽然麻烦，但比较安全.
+
+2：如何调试程序
+
+在运行时必须知道某个变量为何值。我是这样做的，建立一文件debug.php,其内容如下:
+
+
+<code lang="php" line=1>
+
+    Ob_Start();
+    Session_Start();
+    Echo "<pre>";
+    Echo "本页得到的_GET变量有:";
+    Print_R($_GET);
+    Echo "本页得到的_POST变量有:";
+    Print_R($_POST);
+    Echo "本页得到的_COOKIE变量有:";
+    Print_R($_COOKIE);
+    Echo "本页得到的_SESSION变量有:";
+    Print_R($_SESSION);
+    Echo "</pre>";
+
+
+   </code>
+
+然后在php.ini中设置：include_path = "c:/php"，并将debug.php放在此文件夹,
+以后就可以在每个网页里包含此文件，查看得到的变量名和值.
+
+3:  规范你的SQL语句
+
+
+在表格，字段前面加上"`",这样就不会因为误用关键字而出现错误，
+当然我并不推荐你使用关键字.
+
+例如
+$Sql="INSERT INTO `xltxlm` (`author`, `title`, `id`, `content`, `date`) VALUES ('xltxlm', 'use`', 1, 'criterion your sql string ', '2003-07-11 00:00:00')"
+
+"`"怎么输入? 在TAB键上面.
+
+4:  如何比较两个日期相差几天
+
+$Date_1="2003-7-15";//也可以是:$Date_1="2003-6-25 23:29:14";
+$Date_2="1982-10-1";
+$Date_List_1=explode("-",$Date_1);
+$Date_List_2=explode("-",$Date_2);
+$d1=mktime(0,0,0,$Date_List_1[1],$Date_List_1[2],$Date_List_1[0]);
+$d2=mktime(0,0,0,$Date_List_2[1],$Date_List_2[2],$Date_List_2[0]);
+$Days=round(($d1-$d2)/3600/24);
+Echo    "偶已经奋斗了 $Days 天^_^";
+
+5:为什么我升级PHP后,原来的程序出现满屏的 Notice: Undefined variable:
+
+
+这是警告的意思,由于变量未定义引起的.
+打开php.ini,找到最下面的error_reporting,修改为error_reporting = E_ALL & ~E_NOTICE
+
+对于Parse error错误
+error_reporting(0)无法关闭.
+如果你想关闭任何错误提示,打开php.ini,找到display_errors,设置为display_errors = Off.以后任何错误都不会提示.
+
+那什么是error_reporting?
+
+6: 我想修改MySQL的用户,密码
+
+首先要声明一点，大部分情况下，修改MySQL是需要有mysql里的root权限的，
+所以一般用户无法更改密码，除非请求管理员.
+
+方法一
+　　使用phpmyadmin，这是最简单的了，修改mysql库的user表，
+　　不过别忘了使用PASSWORD函数。
+
+方法二
+　　使用mysqladmin，这是前面声明的一个特例。
+　　mysqladmin -u root -p password mypasswd
+　　输入这个命令后，需要输入root的原密码，然后root的密码将改为mypasswd。
+　　把命令里的root改为你的用户名，你就可以改你自己的密码了。
+　　当然如果你的mysqladmin连接不上mysql server，或者你没有办法执行mysqladmin，
+　　那么这种方法就是无效的。
+　　而且mysqladmin无法把密码清空。
+
+下面的方法都在mysql提示符下使用，且必须有mysql的root权限：
+　　方法三
+　　mysql> INSERT INTO mysql.user (Host,User,Password)
+　　VALUES('%','jeffrey',PASSWORD('biscuit'));
+　　mysql> FLUSH PRIVILEGES
+　　确切地说这是在增加一个用户，用户名为jeffrey，密码为biscuit。
+　　在《mysql中文参考手册》里有这个例子，所以我也就写出来了。
+　　注意要使用PASSWORD函数，然后还要使用FLUSH PRIVILEGES。
+
+方法四
+　　和方法三一样，只是使用了REPLACE语句
+　　mysql> REPLACE INTO mysql.user (Host,User,Password)
+　　VALUES('%','jeffrey',PASSWORD('biscuit'));
+　　mysql> FLUSH PRIVILEGES
+
+方法五
+　　使用SET PASSWORD语句，
+　　mysql> SET PASSWORD FOR jeffrey@"%" = PASSWORD('biscuit');
+　　你也必须使用PASSWORD()函数，
+　　但是不需要使用FLUSH PRIVILEGES。
+
+方法六
+　　使用GRANT ... IDENTIFIED BY语句
+　　mysql> GRANT USAGE ON *.* TO jeffrey@"%" IDENTIFIED BY 'biscuit';
+　　这里PASSWORD()函数是不必要的，也不需要使用FLUSH PRIVILEGES。
+
+注意： PASSWORD() [不是]以在Unix口令加密的同样方法施行口令加密
+
+
+
+[jekyll-docs]: http://jekyllrb.com/docs/home
+[jekyll-gh]:   https://github.com/jekyll/jekyll
+[jekyll-talk]: https://talk.jekyllrb.com/
