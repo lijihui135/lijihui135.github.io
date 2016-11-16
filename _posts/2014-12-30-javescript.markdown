@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "javescript详解"
-date:   2015-12-30 11:49:45 +0200
+date:   2014-12-30 11:49:45 +0200
 categories: jekyll update
 ---
    首先我们来简单了解一下javescript是什么有哪些特性。

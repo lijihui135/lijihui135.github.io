@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "命令行创建数据库和表"
-date:   2015-12-29 11:49:45 +0200
+date:   2014-12-29 11:49:45 +0200
 categories: jekyll update
 ---
    在sql中使用命令行创建数据库，

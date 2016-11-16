@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Session and Cookie"
-date:   2015-12-26 11:49:45 +0200
+date:   2014-12-26 11:49:45 +0200
 categories: jekyll update
 ---
 首先我们要明白为什么要使用Session和Cookie ,在非常多时候，我们需要跟踪浏览者在整个网站的活动，对他们身份进行自动或半自动的识别（也就是平时常说的网站登陆之类的功能），这时候，我们常采用Cookie与 Session来跟踪和判断。
