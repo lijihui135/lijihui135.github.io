@@ -1,8 +1,8 @@
 ---
 layout: post
 title:  "面向对象详解"
-date:   
-categories: 
+date:   2015-01-06 11:49:45 +0200
+categories: jekyll update
 ---
    
 
